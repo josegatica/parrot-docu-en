@@ -1,0 +1,6 @@
+====What is Parrot====
+
+     
+
+Parrot is a GNU/Linux distribution based on Debian and focused on Penetration Testing, Digital Forensics, Programming and Privacy protection.
+
