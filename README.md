@@ -28,4 +28,4 @@ Also, if you find some mistake (hey! we're humans), you can write an email to jo
 
 <h2>Why Parrot?</h2>
 
-"because it was born as a game, and every pirate of the seven seas needs a parrot on his shoulders if he wants to board the galleons with his crew of jailbird filibusters"
+"Because it was born as a game, and every pirate of the seven seas needs a parrot on his shoulders if he wants to board the galleons with his crew of jailbird filibusters"
