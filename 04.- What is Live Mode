@@ -1,0 +1,16 @@
+==== What is live mode ====
+
+The **live mode** is a special boot mode offered by many linux distributions, including Parrot OS, which allows the users
+to load a fully working linux environment without the need to install it.
+
+This is possible because the system is not loaded onto the system's hard drive, instead it is loaded into memory.
+
+Parrot OS offers the ability to install the OS while in the live environment, use all of its tools and even create a [[Parrot USB Live Persistence | persistent live environment]].
+
+To create a live boot device please read [[How to create a live boot device] | this ]] page.\\
+To learn how to boot from the live media read [[How to boot | this]] page instead.
+
+\\
+=== Default username and password ===
+
+In Parrot OS live environment the default username is **user** and the default password is **toor**. 
