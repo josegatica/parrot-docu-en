@@ -21,8 +21,10 @@ If you want to join us and colaborate with this project, we invite you to join t
 You can find us on our Facebook Group too: https://www.facebook.com/groups/parrotsec
 
 <h3>Our web:</h3>
-English: https://www.parrotsec.org/
-Spanish: https://www.parrotsec-es.org/
+
+· English: https://www.parrotsec.org/
+
+· Spanish: https://www.parrotsec-es.org/
 
 Also, if you find some mistake (hey! we're humans), you can write an email to josegatica@parrotsec.org.
 
