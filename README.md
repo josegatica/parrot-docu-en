@@ -1,4 +1,4 @@
-<h1>Parrot Security Official Documentation (español)</h1>
+<h1>Parrot Security Official Documentation</h1>
 This project has been possible thanks to Parrot distro spanish language community members's work.
 You can see our online doc on https://docs.parrotsec.org/doku.php, also we care about creating new contents.
 
