@@ -6,6 +6,9 @@ You can see our online doc on https://docs.parrotsec.org/doku.php, also we care 
 
 Our <b>ParrotSec Leader Team</b>  in spanish language is:
 - José Gatica (ParrotSec-ES Team Leader)
+    English Doc Team:
+    - Eloir "RorschachHacker" Corona
+    - Adrian "GhostAd" Baldiviezo
 - Josu Elgezabal (Documentation Leader)
 - Romell Marín (Documentation Leader)
 - Claudio Marcial (Web Leader Team)
