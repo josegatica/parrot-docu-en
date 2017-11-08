@@ -1,0 +1,11 @@
+Reverse Engineering
+
+What is it?
+
+Reverse engineering involves analyzing and dismantling an object to see how it works, with the intention of making a copy or improving it. It is an old industry practice widely used in computing, both hardware and software. The best known is the reverse engineering of computer programs, which consists of investigating the internal operation of the program (disassembling it), until inferring its binary code or machine code (the 0s and 1s that the program sends to the processor, to "talk" with the machine) and, from here, the source code. The objective may be to recover a lost source code, modify it to, for example, fix a fault, discover malicious content in the case of viruses, or duplicate the program.
+
+Applications
+
+- Cracking: Cracking is the modification of the software with the intention of eliminating the protection methods that it has: copy protection, trial versions, serial numbers, hardware keys, date verification, CD verification or advertising and adware.
+
+- Discover the basic principles of operation of a device, object or system, through abductive reasoning of its structure, function and operation.
