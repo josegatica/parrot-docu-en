@@ -1,0 +1,68 @@
+Parrot Software Management
+
+In this chapter we will see an introduction to the APT package manager for Parrot. A program is a series of instructions. These instructions come in text files called sources. To work in our systems, they must be passed to machine language. This step is called compilation. The compilation generates one or several files, understandable by the system, which are called binaries.
+
+Currently it is not necessary for the user to compile the sources of each program. The developers are responsible for compiling them for us and generating the respective binaries. As a program can carry, not only the executable, but another series of files, the developers "package" such software in a file called package. Two are the most famous, RPM packages and DEB packages. RPM was developed by Red Hat and DEB by Debian. Parrot uses the DEB format.
+
+To compile some programs, some libraries and other programmes are necessary. If we tried to compile a program that had dependencies with other libraries and other programs, we should install these "dependencies" previously to its compilation. Likewise, if we want to install a binary we will need to have installed the necessary dependencies for its correct operation.
+
+To manage these dependencies and the "packages" installation, package managers have been created. There are numerous packet managers, some graphics and other in command line. In this chapter, we will see one of the most famous, created by the Debian developers, and the one used by Parrot... APT.
+
+The main functions of a package manager must be:
+
+- Software searching
+- Software installation
+- Software update
+- System update
+- Dependency management
+- Software removal
+
+The package manager must check in a given location (it can be a local directory or a network address), the availability of such software. The locations are called repositories. The system maintains configuration files to check their repositories location.
+
+Let's start...
+
+List of Repositories
+
+Although in Parrot it is not necessary (nor recommended) to add new repositories or modify existing ones, we will see where we can configure them. In the file system, in the path "/etc/sources.list.d", we find the file parrot.list. The content of this file should be:
+
+## stable repository
+deb http://deb.parrotsec.org/parrot stable main contrib non-free
+#deb-src http://archive.parrotsec.org/parrot stable contrib non-free
+
+With this, we make sure to have the correct repositories list. In this location, the Parrot developers, keep the packages updated.
+
+You can also see the file "Mirrors"
+
+Package Manager (APT)
+
+The Parrot package manager is apt. This manager is responsible for installing packages, checking dependencies, updating the system, among other things. Let's see we can do with it. We will see the most common options, but we can see several man pages (apt, apt-get, apt-cache, dpkg)
+
+- Search for a package or text string:
+	 # apt search <text_string>
+- Show packege information:
+	# apt show <package>
+- Show a package dependencies:
+ 	#apt depends <package>
+- Show the names of all the packages installed in the system:
+	# apt list --installed
+- Install a package:
+	# apt install <package>
+- Unistall a package:
+	# apt remove <package>
+- Delete a package including its configuration files:
+	# apt purge <package>
+- Delete automatically those packages that are not been used:
+	# apt autoremove
+- Update the repositories information:
+	# apt update
+- Update a package to the last available version in the repository:
+	# apt upgrade <package>
+- Update the system. It will update all the packages that have a higher version:
+	# apt upgrade
+- Update the full distribution. It will update our system to the next available version:
+	# apt dist-upgrade
+- Clean caches, downloaded packages, etc:
+	# apt clean
+	# apt autoclean
+
+These are just some examples. If more information is required, you shoul check the manual page (man 8 apt).
