@@ -1,0 +1,25 @@
+The Hackers
+
+WHAT ARE THE HACKERS?
+
+Since the word hacker was used for the first time it has been misused, misinterpreted and pigeonholed in a wrong context. The most appropriate definition for the mentioned word would designate the name of someone with talent, knowledge, intelligence and ingenuity, especially related to computer operations, networks, security, etc. In the best case, they are incentivators, testers and approvers of the best and newest technologies; in the worst case they can be mischievous, perverse or curious delinquents, in this last definition the words Computer Pirate fits well.
+
+Taking into account the terms "in the best case" and "in the worst case", there is a less ambiguous classification: Lammer, Newbie, Script Kiddie, Green, White, Gray and Black.
+
+WHERE DID THE NAME COME FROM?
+
+Doing a thorough investigation, you can see that the first hacker was not a man, but a woman, and his name was Grace Murray Hopper, the person who created and related the word bug with vulnerability, and deserves the title of the first Hacker . When talking about the first hackers, everyone agrees that the people of the Massachusetts Institute of Technology (MIT) were the precursors of coining the hacker culture in 1959 to a group of people who were in charge of solving technical problems. For these reasons, we can say that Grace was the first hacker, but not the creator of this terminology, that label was given to the MIT boys, almost 20 years later. Maybe we are wondering where the word hacker came from, and we can say that it is a practically untranslatable word that has been covered over the years. But it seems that this acronym is linked especially to the so-called Hacks or, put another way, this is called the sharp knocks made by telephone technicians when they tried to repair any of their devices. These sharps knocks were called in the English Slang "Hacks (from Ax)" and it is more than likely that those who did were called Hackers. Either way, we will never know with certainty the origin of this word.
+
+
+In the same way that Grace created the concept of bug or vulnerability in a machine, without knowing that in the future her discovery would have so much impact and that there would be methods to get the benefit of that error, the MIT boys did not imagine that their methodologies to solve problems or their way of thinking would serve as an example or will be key points when talking about hackers.
+
+WHAT DO THEY EXACTLY
+
+In a survey of people with knowledge in the field of information technology, almost all of the answers were:
+
+- Dedicates to development and has great knowledge.
+- Expert in vulnerability testing and search for improvements for them.
+
+WHAT INFLUENCE AND ROLE DO THEY PLAY IN THE WORLD OF TECHNOLOGY?
+
+Hackers currently play a very important role in the technological world since they are in charge of developing, testing, verifying errors and many other activities that make us more comfortable with technology, they make the most intuitive technology for its use .
