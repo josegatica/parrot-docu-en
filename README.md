@@ -9,7 +9,7 @@ Our <b>ParrotSec Leader Team</b>  in spanish language is:
 
     English Doc Team:
     - Eloir "RorschachHacker" Corona
-    - Adrian "GhostAd" Baldiviezo
+    - Adrian "Ghostar" Baldiviezo
 - Josu Elgezabal (Documentation Leader)
 - Romell Marín (Documentation Leader)
 - Claudio Marcial (Web Leader Team)
