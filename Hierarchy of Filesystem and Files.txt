@@ -1,0 +1,67 @@
+HIERARCHY OF FILESYSTEM AND FILES
+
+The main problem of every migrant user to GNU / Linux is the structure of files, since it is customary commonly to mention directories like "C: / users / User / Desktop" in Windows, which does not happen in the distribution GNU / Linux. To facilitate the "migration" of users to GNU/Linux, the hierarchy of filesystems contained in the aforementioned system will be explained in detail below. Framed in two basic types Static/Dynamic and Shareable/Restricted in which the entire Linux directory tree is organized.
+
+SOME FEATURES OF THE LINUX FILES SYSTEM
+
+- Based on a hierarchical tree of diretories.
+- Standarizaed in 1993 by the FHS project (Filesystem Hierarchy Standard).
+- Everything in Linux is a file.
+- File system organization according to FHS.
+
+GNU/LINUX TYPOLOGICAL CLASSIFICATION
+
+- STATIC: Contains files that only the root user can change. Binaries, libraries, documentation, etc. However, these are available for read-only by any other user of the system. Some of these directories are: /bin, /boot, /opt, /sbin, /usr, /proc, etc.
+
+- DYNAMICS: As the name says, in this category are the files that can be modified, (some of them only by the root). These types of directories are usually backed up more often. Some of these directories are: /var/mail, /var/spool, /var/run, /home, etc.
+
+- SHAREABLE: These are directories that can de shared over the network.
+
+- RESTRICTED: Contains directories that can not be shared, that can only be viewed and/or modified by the root. Some of these directories are: /etc, /var/lock, /var/run, etc.
+
+All Linux/Unix directories hang from the so-called root directory "/". You could at first glance make a comparison with the "C: \" Windows directory, however, there are notable differences between them:
+- All the devices and the different partitions of all the disks and units used by the system hang from the Linux "/" directory; the partitions, disks and devices in general are "mounted" in Linux in a special directory that is always below the "root directory"; the opposite happens in Windows systems, since they name each partition and device by a different letter C:, D:, E:.
+
+When mentioning "mount a unit" we mean that this, either partition or device, begins to be part of our system and therefore, it is possible to work with it. In Linux, we can mount and dismount partitions at our whim when we want to use them or let them not to be accessible to our system.
+
+To understand the hierarchy of the Files in Linux, we will give a brief explanation of SOME of them:
+
+DIRECTORY	DEFINITION/CONTENT
+/		Root or Main Directory, which contains all the structure of directories and files of the system, in other words, everything that exists in Linux is somewhere below this directory.
+/bin		Contents the essential binaries of Linux/Unix systems, accessible to all users. When referring to these files as "binaries" we are referring to already compiled executables.
+
+/boot		Contains the Kernel, the initrd, the grub, etc. They are files used during system startup.
+/dev		It groups the essential devices, storage, keyboard, terminal, sound, video, CD, DVD, printers, etc. I would dare to say it is saved here.
+/etc		System configuration files, host name, network, users, programs, etc. It also contains subdirectories like /x11 here you can configure the graphic system of our Linux.
+
+/home		This is the directory where the users and user files of the system are saved, with the exception of the "root" user, this has its own / root directory, the others hang from the / home directory. For example: /home /user.
+/lib		Contains essential libraries shared by programs hosted within the /bin and /sbin directories, as well as by the Kernel.
+/lost+found	It is a directory in which we can find all filesystems. When a non-system hardware error occurs (commonly power outages), when it restarts you will notice that the fsck program will be called to restore the integrity of the file system. In this folder we will find the information that was left untouched due to the incident.
+/mnt		Temporarily mounted file systems (usb, hard disk, etc). There are differences between the use of this and the directory /media; in most Linux distributions this is commonly used to mount Windows partitions (in case we have a dual boot system).
+/media		It contains the mounting points for devices such as reading units (CD, DVD). Do not confuse with the /dev directory. Both /media and /mnt are those that contain the mount points, not the devices themselves.
+/opt		Here you usually store the packages you install manually (without executing the apt install command in the terminal).
+/proc		Virtual file system that documents events and kernel states, mainly contains text files, memory information, interrupts, irq, etc.
+/root		The /home of the administrator, the only /home that is not included (by default) in the aforementioned directory.
+/sbin		System or administrative binaries, here the binaries that mostly use "root" are hosted.
+/srv		Contains system information about certain services offered (FTP, HTTP, ...)
+/sys		Contains information about the devices as seen by the Linux Kernel.
+/tmp		It is a directory where temporary files are stored, whether installation or execution of programs. Each time the system is started, this directory is cleaned.
+/usr		Unlike /sbin or /bin contains binaries that are not essential for the system, in this directory there is a sub-hierarchy for read-only shared data. This directory can be shared by multiple computers, but it must not contain data in the computer that shares them.
+/usr/bin		Manageable binaries for most desktop applications among others available to all users.
+/usr/include	Contains header files (or include files). They are files that are taken advantage of by other files including them in their content.
+/usr/lib		Shared libraries of binaries.
+/usr/local		Local host data. It's another level inside that offers a hierarchy similar to the /usr directory itself.
+/usr/sbin		System of non-essential binaries, for example daemons normally executed during startup.
+/usr/share		Shared data independent of the system architecture (images, text files, etc). Within this directory is a large part of the system's documentation.
+/usr/src		Contains the source code of the programs, for example the Linux kernel.
+/var		Contains variable files (logs, HTTP servers, FTP, mail queues, etc).
+/var/cache		Application data cache memory, sometimes the /tmp directory has a similar use.
+/var/games	Contains the variable data of the games.
+/var/lib		Information about the current state of the applications, modifiable by the applications themselves.
+/var/lock		Files that ensure that a resource is only used by a specific application that has requested its exclusivity, until it is released.
+/var/log		Here all kinds of system logs and applications are stored.
+/var/mail		Mailbox or messages from users. When encryption is not used, this information is usually stored in the user's personal folder (/home/user).
+/var/opt		Data used by the packages stored in /opt.
+/var/run		Contains system information since it was started (loguedd-in users, running daemons, etc).
+/var/spool		Data waiting to be treated by some kind of process (print queues, unread emails, etc).
+/var/tmp		Temporary files that are not deleted between sessions or system reboots, but may still be dispensable.
