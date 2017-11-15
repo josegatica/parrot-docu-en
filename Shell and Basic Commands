@@ -1,0 +1,236 @@
+Shell and Linux Basic Commands
+Every new user, before doing anything else in Linux, must understand how the Shell works and how to use it in Linux. The Shell allows us to execute commands to perform almost any function in the system, is the way we have to speak directly with the operating system without using the GUI (Graphical User Interface).
+An excellent command to start using the shell is "uname", this shows us what operating system we are using.
+	$ uname
+	Linux
+By using the option -a we can find additional information.
+	$ uname -a
+	Linux parrot 4.11.0-parrot6-amd64 # 1 SMP Parrot 4.11.6-1parrot6 (2017-06-28) x86_64 GNU / Linux
+The "-a" option gives us more information, including the current version of the Linux kernel that is used, the hostname, the system architecture.
+The Shell allows us to execute internal and external commands, it is important to differentiate each of these two types.
+Internal commands are those that are integrated in the Shell (Built into shell), these internal commands allow us to perform common tasks such as:
+Show the current directory:
+	$ pwd
+Change directory:
+	$ cd / route / del / nuevo / directory
+Show a text on the screen:
+	$ echo "Text we want to show"
+Runtime of a command:
+	$ time pwd 		# This tells us the execution time of the pwd command
+Set options:
+	$ set --help
+The set command displays a wide variety of options related to shell operations. These options are very similar to the environment variables, but they are not the same thing.
+Close the Shell:
+	$ exit
+The exit and logout commands end the shell. The exit command ends any shell, while the logout command only terminates the login shell. These login shell are those that start at the start of a text mode session.
+	$ logout
+It can be easily checked when a command is Internal or External using the "type" command before the command that we want to check.
+	$ type cd
+	cd is a shell builtin
+	$ type bash
+	bash is / bin / bash
+Some internal commands are duplicated by external commands that do exactly the same function, these external commands are not always installed on all systems. We can check which of these internal commands are duplicated by external commands by using the "-a" option when executing the "type" command.
+	$ type -a pwd
+	pwd is a shell builtin
+	pwd is / bin / pwd
+In the previous execution we can see how an external installation of the pwd command exists in ParrotSec. It is important to mention that when an external command is installed, the internal command has priority. If we want to execute the external command instead of the internal one, we must specify the external command path, example:
+	$ / bin / pwd
+	/ home / user
+These are some basic concepts that you must learn before going deeper into the use of the Shell and commands in GNU / Linux. It is important to have knowledge not only of the operations that can be performed with a command but also of its origin and how it works.
+
+Using su and sudo
+The su and sudo commands are often confused, let's say they have a small relationship since both, in one way or another, are to scale privileges in a Linux system or to execute commands as a super user, but in reality they are very different, they perform different functions and the use of both is totally different. In this chapter we will explain the use of each of them.
+
+Su command
+The su command is the acronym for Switch User, as its name tells us, this command allows us to change user without having to log out and log in again with the user we want to change. To explain the use of the su command, we are going to use "whoami" (this command shows us the current user that we are working with in the system) and pwd that we saw in previous examples.
+	$ whoami
+	user
+	$ pwd
+	/ home / user
+As you can see these commands, you show us that we are the "user" user and we are in the "/ home / user" directory, now if we are going to use the "su" command.
+To change the user "parrot" or another user of the system we execute its followed by the username to which we want to change:
+	$ your parrot
+	password: <parrot user password>
+	$ whoami
+	parrot
+As you can see we have used the command "su" to change to the user "parrot" without the need to log out, from now on all the operations that we carry out in the system will be with the permissions of the user "parrot". To return to our normal user, simply execute the "exit" command.
+	$ your parrot
+	password: <parrot user password>
+	$ whoami
+	parrot
+	$ exit
+	$ whoami
+	user
+We can also use the command "su" to change to the user "root", it is not necessary to specify the user "root" because if no user is specified, "su" defaults to the user "root".
+	$ su
+	password: <user password root>
+	# whoami
+	root
+	# exit
+	$ whoami
+	user
+Note how the prompt changed the symbol of $ to the symbol #, this is because the symbol $ represents the normal users of the system and the symbol of # represents the super user (root). Like to return to our user we execute the exit command.
+In case you want to change to a user and at the same time change to your personal folder and other environment variables, add a minus (-) symbol between the su command and the user's name, example:
+	$ whoami
+	user
+	$ pwd
+	/ home / user
+	$ su - parrot
+	password:
+	$ whoami
+	parrot
+	$ pwd
+	/ home / parrot
+For a better understanding of your command, we invite you to check the manual, executing from the terminal:
+	$ man su
+To exit the manual, press the "q" key.
+
+Sudo command
+Sudo is the acronym for "Switch User DO" (Change User and Do ...). This command allows us to change the root user in an imperceptible way and execute commands or actions with the privileges of the root user in a completely secure way. In large part of the Linux distributions we have the sudo command installed by default. This command can not be used by all users of the system, there is a group called "sudoers users", the users belonging to this group are the only ones that are authorized to use this command, it is usually only configured for users system administrators. The configuration file is located in / etc / sudoers.
+Content of the sudoers file in Parrot:
+	# This file MUST be edited with the 'visudo' command as root.
+	#
+	# Please consider adding local content in /etc/sudoers.d/ instead of
+	# directly modifying this file.
+	#
+	# See the man page for details on how to write to sudoers file.
+	#
+	Defaults env_reset
+	Defaults mail_badpass
+	Defaults secure_path = "/ usr / local / sbin: / usr / local / bin: / usr / sbin: / usr / bin: / sbin: / bin"
+	# Host alias specification
+	# User alias specification
+	# Cmnd alias specification
+	# User privilege specification
+	root ALL = (ALL: ALL) ALL
+	# Allow members of group sudo to execute any command
+	% sudo ALL = (ALL: ALL) ALL
+	# See sudoers (5) for more information on "#include" directives:
+	#include /etc/sudoers.d
+
+What does all this mean?
+Simply explained:
+- All the lines preceded by the # symbol are comments that indicate each section of the configuration file, these comments are ignored by the system.
+- The section "# User privilege specification" which contains "root ALL = (ALL: ALL) ALL", indicates that the user "root" has the right to use the sudo command and edit the configuration of the "sudoers" file. If you want to add another user to "sudoers", we can add a similar line to the user "root" with the name of the desired user, for example: "parrot ALL = (ALL: ALL) ALL". In case the user "parrot is not in the group" sudoers users "or" sudo ", this new line would allow him to make use of the command" sudo ".
+- The section "# Allow members of group sudo to execute any command" that contains "% sudo ALL = (ALL: ALL) ALL", indicates that the members of the group "sudo" have permissions to use this command, modify the configuration of sudoers, etc. That is, this section allows us to add all the members of a specified group so that they have permission to use the sudo command. Example: "% administrators ALL = (ALL: ALL) ALL", this line allows all members of the group "administrators" to use the sudo command, etc ...
+
+Examples of sudo command usage
+In case you want to install an application from the repositories, or perform some other task that needs administrative permissions, we find the following error.
+	$ apt-get install chromium
+	E: Could not open lock file / var / lib / dpkg / lock - open (13: Permission denied)
+	E: Unable to lock the administration directory (/ var / lib / dpkg /), are you root?
+It tells us that the permission has been denied and asks us if we are root, instead if we use the sudo command in front:
+	$ sudo apt-get install chromium
+	[sudo] password for parrot:
+	Reading package lists ... Done
+	Building dependence tree
+	Reading state information ... Done
+	.............
+The sudo command asks us our user password and then executes the next command with administrative privileges.
+Working with files from the Shell
+$ ls
+List files of a directory.
+
+$ ls -l
+List also the properties and attributes.
+
+$ ls -la
+Lists files including the hidden ones of the system.
+
+$ ls -la | more
+Lists the files of a directory in a paged form.
+
+$ ls -lh
+File list specifying the unit of size.
+
+$ ls -l | grep ^ d
+List only the directories.
+
+$ cat -n file
+Displays the contents of a file (-n numbers).
+
+$ pr -t file
+Shows the contents of a file in a formatted way
+
+$ more file
+$ less file
+They show the contents of a file in a paged form.
+
+$ zcat file
+$ zmore file
+$ zless file
+They show the contents of a compressed file (.gz).
+
+$ echo chain
+Shows on the screen the text that follows.
+
+$ grep 'string' file
+Shows the lines of a file that contain the string.
+
+$ stat file
+Shows the status of a file.
+
+$ file file
+Shows what type a file is.
+
+$ tail file
+Shows the last lines of a file, 10 by default.
+
+$ tail -n 12 file
+Displays the last 12 lines of a file.
+
+$ tail -f file
+It shows the last lines of the file, updating it as they are added. Useful to control logs.
+
+$ head file
+Displays the first 10 lines of a file. Support -n just like the tail command.
+
+$ find / usr -name lilo -print
+Find all the files with the name lilo in / usr.
+
+$ find / home / user -name * .jpg -print
+Search all the images * .jpg in / home / user /
+
+$ pwd
+Displays the current directory.
+
+$ history
+Displays the list of commands used by the user.
+
+$ cd directory
+Change directory
+
+$ cd ..
+Go back to the previous directory.
+
+$ cd / home / user / Documents
+Change to the Documents directory indicating the full path.
+
+$ cp -pR file / home / user / directory /
+# -R Indicates that a directory will be copied recursively, except special files
+# -p Incica that will be copied preserving permissions, owner, group and dates.
+Copy the file to the directory, keeping the current name of the file.
+
+$ mv file_path1 file_path2
+Move and / or rename files or directories.
+
+$ mkdir directory
+Create a directory.
+
+$ rdir directory
+Delete an empty directory.
+
+$ rm file
+Delete files
+
+$ rm -r directory
+Delete the files of a directory recursively.
+
+$ wc
+Shows the number of words, lines and characters of a file.
+
+$ touch file
+Create a file with the current date.
+
+$ ifconfig
+It shows the configuration of the network adapters
