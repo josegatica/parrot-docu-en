@@ -1,0 +1,95 @@
+Text editor Vi / Vim
+Vi is the classic text editor in GNU / Linux and Unix systems, it can be said that the systems that have only one text editor in vi, hence the importance of learning to work with this excellent editor. Many ignore it because it is a little complex for new users and end up adapting to other editors such as nano, gedit or leafpad. The complexity of Vi is because it was created when not all keyboards have cursor movement keys, therefore, all tasks can be carried out in Windows can be carried out with the traditional alphanumeric keys and other keys such as Esc and Insert. Currently we have an improved version of vi, called vim, which is compatible with an earlier version of vi and has a graphical mode (gvim) in addition to the vi standard text mode interface. Nowadays, in most distributions, the vi command is usually an alias or a symbolic link to vim.
+Versions of VIM:
+	Tiny (minimum)
+	Small (small)
+	Normal
+	Big (big)
+	Huge (huge)
+To check which version of vim we are running on our system, we execute the following command:
+	$ vi --version
+Before moving on to text editing, let's look at the keys that are used to scroll within a file using VIM.
+Use the following commands to navigate within a file:
+Move a character to the left in the current line
+	h
+Go to the next line
+	j
+Go to the previous line
+	k
+Move a character to the right in the current line
+	l
+Go to the next word in the current line
+	w
+Go to the next word end in the current line
+	e
+Go to the previous beginning of the word in the current line
+	b
+Go to the next page
+	Ctrl + b
+Return to the previous page
+	Ctrl + b
+Note: if you type a number before executing any of these commands, the command will be repeated as many times as indicated by that number, let's say it is a repetition count.
+Use the following commands to navigate to specific lines within a file.
+	G
+Move to a specific line within the file. For example, the 3G command will locate it on line 3. Without any parameter, G places it on the last line of the file.
+	H
+Move in relation to the top line of the screen. For example, the 3H command will place it on the current third line of the screen.
+	L
+Same as H, but in relation to the last line of the screen. Therefore, the 2L command will place it on the third to last line of the screen.
+Note: You must practice each of these commands until you can comfortably move within a file, then continue reading this chapter.
+Exit the editor:
+It is very important that you know how to exit the editor to avoid making an error, damaging configuration files or important documents. The options to exit vim are the following:
+Exit the editor discarding the changes.
+	: q!
+Save the changes made to the file.
+	: w!
+Save the changes and exit the file (does not ask for confirmation).
+	ZZ
+Edit the current disk copy of the file. The file will be reloaded and all changes made will be canceled.
+	:and!
+Execute a shell command. Type the command and press Enter. When the command completes, you will see the output data and a warning to return to the vi editor.
+	:!
+Note: When typing two points (:), the cursor will move to the last line of the screen to allow you to type a command with its respective parameters. You can also use the commands in non-abbreviated format (: quit,: write,: edit), this allows you to remember each of the commands easier, but its use is rare.
+Vi Modes
+Command mode: In this mode, we can move within a file and perform editing operations such as searching for text, deleting text, etc. vi is usually started in command mode.
+Insert mode: In insert mode, we can type new text at the insertion point of a file. To return to command mode, press the Esc key.
+Text editing
+Use the following commands to insert, delete or modify text. Note that some of these commands have an uppercase form that is similar to the lowercase form.
+Enter the insert mode, type the desired text and press Esc to return to the command mode.
+	i
+Enter the insert mode, type the desired text and press Esc to return to the command mode.
+	a
+Note: Use I to insert text at the beginning of the current line and A to insert text at the end of the current # actual line.
+Use c to modify the character in the current position and enter the insert mode to write the replacement characters.
+	c
+Open a new line to insert text below the current line.
+	or
+Open a new line to insert text above the current line.
+	OR
+Delete the rest of the current word and enter insert mode to replace it.
+	cw
+	# use a count to replace several words and c $ to replace until the end of the line.
+Delete the current line, you can use a count to delete several lines.
+	dd
+Remove the character at the cursor position. You can also use a count for several characters.
+	x
+Place the last deleted text after the current character. Use P to place it before the cursor.
+	P
+Swap places between the character at the cursor position and the one on the right.
+	xp
+Search text
+Use / followed by a regular expression to search forward in the file.
+Use? followed by a regular expression to search backward in the file.
+Use n to repeat the last search in any direction.
+Note: You can precede any of the search commands with a number that indicates a repetition count.
+Access Help in vi.
+To get help in vi we can execute the following command:
+	: help
+Get help on a particular command.
+	: help [command]
+This is a basic help of vi, which will open within the same editor, to exit the help we execute:
+	: q
+Conclusion
+As mentioned at the beginning of the chapter, vi is an excellent text editor and it is of the utmost importance that every GNU / Linux user has at least a basic knowledge of its use. At first it can be a tedious, difficult and even boring task. There is a tool that we can use to learn to work with vi in a very easy and interactive way, this tool is vimtutor, its use is very simple and really helps a lot, surely when you try it, you will spend the next thirty minutes learning to work with saw.
+	┌─[user@parrot]~[/home/user]
+	└──╼ $ vimtutor
