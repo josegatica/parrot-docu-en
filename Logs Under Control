@@ -1,0 +1,154 @@
+Logs under control
+
+First log in to your Parrot Security
+In my case I'm using version 3.9 Intruter in VPS and 3.8 JollyRoger on Android with Linux Deploy
+In this opportunity we will review how to access the logs to understand a problem when it is presented; and if so, the solution is to read clearly and understand the error message that is being generated.
+By default, most of the log files are located in
+
+	/var/log
+	
+In general, it is common for programs to have an internal log. By convention, these are located in
+
+	/var/log/program-name
+	
+This, that seems a triviality, is extremely important since it allows to centralize the log files. The most important log is probably the found in
+
+	var/log/messages
+	
+Additionally, there are programs that manage their own logging interval. One of the most interesting is the bash shell.
+By default, the bash saves a historical file of the commands executed in
+
+	user/.bash_history
+	
+The operating system uses LogCheck to perform the analysis
+We go with postgresql
+
+	1. cd /var/log/postgresql
+	2. ls
+In my case I have these 3 files:
+
+ 	postgresql-10-main.log postgresql-9.6-main.log postgresql-9.6-main.log.1
+	
+If we want to see the content of one of them we use this command'cat'
+Example:
+
+	3. cat postgresql-10-main.log
+	
+Now we go with Nginx
+
+	cd /var/log/nginx
+	
+We can use ls -lart to see dates of the content and what type it is if it is a folder or file
+In my case I have these logs
+
+	┌─ [root @ parrot] ─ [/var/log/nginx]
+	Ls #ls -lart
+	total 28
+	-rw-r ----- 1 www-data adm 289 Oct 17 06:15 access.log.3.gz
+	-rw-r ----- 1 www-data adm 943 Oct 17 22:15 access.log.2.gz
+	-rw-r ----- 1 www-data adm 78 Oct 18 18:28 error.log.1
+	-rw-r ----- 1 www-data adm 1816 Oct 18 22:11 access.log.1
+	-rw-r ----- 1 www-data adm 0 Oct 19 06:25 error.log
+	drwxr-xr-x 2 root adm 4096 Oct 19 06:25.
+	drwxr-xr-x 21 root root 4096 Oct 19 06:25 ..
+	-rw-r ----- 1 www-data adm 1584 Oct 19 13:42 access.log
+	
+In this case, let's see what errors Nginx has with the following command:
+
+	cat error.log
+	
+In the case of Apache
+The access log file records incoming requests and all requests processed by Apache. Such as requests for obtaining and publishing HTTP. These records can be analyzed by log analyzers such as awstats or webalizer. This is configurable by the CustomLog directive.
+
+	cat /var/log/apache2/access.log
+	
+All Apache errors and diagnostic information found while processing requests are stored here. The location of the error.log file is established by the ErrorLog Directive.
+
+	cat /var/log/apache2/error.log
+	
+Now let's be more practical, let's see if mysql directly has an error. To do this, type:
+
+	cat /var/log/mysql/error.log
+	
+System log
+
+	cat /var/log/syslog
+	
+Contains global system messages, including messages logged during startup. Several things are recorded in this file, including mail, cron, daemon, kern, auth, etc.
+
+	cat /var/log/messages
+	
+kern.log contains the log of kernel initialization at system startup, as well as any kernel errors or informational messages that are sent from the kernel
+
+  cat /var/log/kern.log
+  
+Shows recent login information. This is a command that is executed to see the information provided.
+How to use the "last" command
+Generally, you will only be interested in the most recent login attempts. You can see them with the tool "last":
+
+	last
+	cat /var/log/lastlog
+	
+How to use the "lastlog" command
+If you want to see this situation from a different angle, you can see the last time each user logged on to the system.
+This information is provided by accessing the file "/ etc / log / lastlog".
+Then it is classified according to the entries in the file "/ etc / passwd":
+
+	lastlog
+	
+The debug log provides detailed system debugging messages and applications that log on to the DEBUG level.
+
+	cat /var/log/debug
+	
+It is a program that runs in the background of your operating system, which guarantees a better functioning of it. The Daemon record is executed and displayed information about the running system and application daemons. This application allows you to detect and solve problems before they occur.
+
+	cat /var/logdaemon.log
+	
+How to monitor system logons
+A fundamental component of authentication management is system monitoring once you have configured your users.
+Fortunately, modern Linux systems record all authentication attempts in a discrete file. This is found in "/var/log/auth.log":
+
+	cat /var/log/auth.log
+	
+When you run update alternatives, the resulting messages are entered into this log file. In general, it will be empty if you have not run the update-alternatives command.
+alternatives creates, deletes, maintains and displays information about the symbolic links that make up the system.
+
+	cat /var/log/alternatives.log
+	
+How to check what updates were recently applied in detail
+
+	cat var/log/apt/history.log
+	
+Fontconfig is a library of free software programs designed to provide configuration, enumeration and substitution of sources to other programs.
+
+	cat var/log/fontconfig.log
+	
+Utility to manipulate the MAC address of the network interfaces
+
+	cat /var/log/macchanger.log
+	
+Let's review the part of Graphics X11 freedesktop / DisplayManager / Session0
+
+	cat /var/log/var/log/lightdm/lightdm.log
+	cat /var/log/var/log/lightdm/seat0-greeter.log
+	cat /var/log/var/log/lightdm/x-0.log
+	
+Let's see the details of the operating system
+
+	cat /var/log/installer/lsb-release
+	
+Let's understand how storage is partitioned
+
+	cat /var/log/installer/partman
+	
+Check which packages you have installed
+
+	cat/var/log/installer/status
+	
+Check the logs since your machine boots
+
+	cat /var/log/installer/syslog
+	
+Let's identify what type of machine our Parrot is supporting
+
+	cat /var/log/installer/hardware-summary
