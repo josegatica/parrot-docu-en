@@ -1,0 +1,187 @@
+
+Groups and User Accounts in GNU/Linux
+
+GNU/Linux is a multi-user system, which is based on data account structures and procedures used to identify individual users in a system. Managing these accounts is a basic administration but it is an important skill that we must have when we decide to be GNU/Linux users. Much of the system administration in day-to-day tasks is based on the administration of users, registrations, deregistration, modification of users, configuration of their environments, etc. In this chapter we will see how to do these tasks from the command line. This is a very important issue that every GNU/Linux user should know and master.
+
+Surely you already have a basic understanding of accounts. In Linux, the accounts are like those of Windows, Mac OS or other operating systems, but there are some details that make them different and worth explaining, such as the various Linux users, the nature of Linux Groups and the way Linux assigns the numbers it uses to identify the user and group names that are usually used.
+
+Typical Linux accounts are user accounts identified through the account username, this type of account is for people who need access to the system. Linux accounts can also be system service accounts, also called daemons (program that provides a particular service). Daemons don't log on to a Linux system, however, they need an account on the system in order to run. There are also types of specialized accounts that are created for unique purposes, such as a user account to receive email but not be able to access the local system.
+
+Linking Users through Groups.
+
+Linux uses groups to organize users, they are defined in similar configuration files, have names similar to user names and are represented internally by numbers. Each file on Linux is associated with a specific user and a specific group, this allows us to assign various permissions to members of a group, for example members of the "Management" group in a company can be allowed to read some files, but members of the "Workers" group will be disallowed access to these files. Since Linux provides access to most hardware devices through files, this mechanism can also be used to control access to hardware. Each group can have from none to as many members as users in the system.
+
+Group membership is controlled via the /etc/group file, this file contains a list of groups and members of each group. Each user has a primary group, this primary group of each user is set in the configuration log in /etc/passwd, this file defines each system account through individual account configuration logs. When users log on to the computer, their member group is set up in their main group. A user can access files belonging to other groups as long as the user belongs to that group and the group's permissions allow access by that user. To run programs or create files that do not belong to your primary group, the user must run the "newgrp" command to change the current group membership.
+
+Setting up User Account
+
+The frequency with which user accounts are maintained depends on the nature of the system being managed. Some systems, such as small workstations, rarely require changes, while others, such as multi-user servers, may require daily maintenance. In this chapter we will work with the traditional tools used in Linux to perform this type of operations, registrations, deregistration, modification and deletion of user accounts. Most of today's distributions are delivered with GUI tools that allow us to perform these same operations, these GUI tools vary depending on the distribution so it is difficult to give a general explanation for all distributions of these GUI tools. In general, text-based tools provide greater flexibility and are more widely applicable.
+
+Adding Users
+
+To add users on Linux, we can use the "useradd" command (in some distributions we can find it as "adduser"). Its basic syntax is as follows:
+
+	$ sudo useradd [-c comment] [-d home_direcrory] [-e expiration_date] [-f idle_days] 
+[-g default_group] [-G group] [-p password] [-s shell] [-u UID] user_name
+
+Example:
+
+$ sudo useradd -m -d /home/parrot -g hackers -G hackers,noobs,sudo parrot
+
+This command would create us the user "parrot", its home folder would be /home/parrot, default group "hackers", secondary groups "hackers", "noobs", "sudo".
+
+	$ sudo adduser [user_name]
+
+Example:
+
+	$ sudo adduser parrot
+	Adding user `parrot' ...
+	Adding new group `parrot' (1001) ...
+	Adding new user `parrot' (1001) with group `parrot' ...
+	Creating home directory `/home/parrot' ...
+	Copying files from `/etc/skel' ...
+	Enter new UNIX password: 
+	Retype new UNIX password: 
+	Changing the user information for parrot
+	Enter the new value, or press ENTER for the default
+		Full Name []: Parrot El Pirata
+		Room Number []: Centro de Operaciones
+		Work Phone []: *************
+		Home Phone []: *************
+		Other []: ************
+	Is the information correct? [Y/n] 
+
+With this we would have already created the parror user in the system.
+
+Modifying User Accounts.
+
+Usually, user accounts are modified at the user's request or to implement a new security policy or system change.
+
+User accounts can be modified in several ways.
+
+1 - Directly editing critical files such as /etc/passwd. (not recommended).
+
+2 - Modifying user-specific configuration files in the main account directory.
+
+3 - Using the system tools previously used to create accounts.
+
+Configure or Change Passwords
+
+The "useradd" tool provides the -p parameter for setting a password, this tool is not very useful when directly adding a user because it requires a pre-hash password. Therefore, it is usually easier to create an account in a disabled form (because you don't use the -p parameter) and once the account is created, set a password for it. To do this we can use the "passwd" tool, its syntax is as follows:
+
+	$ sudo passwd [-k] [-l] [-u [-f]] [-d] [-S] [user_name]
+
+- Parameter -k indicates that the system must maintain an expired account.
+
+- The -l parameter locks an account by presetting the hash password with an exclamation point, this results in the user no longer being able to log in to the account but the files are still available. This blockage is easily unblocked, it is useful if you want to temporarily suspend the user's access when any improper use of the account has been detected.
+
+- The -u parameter unlocks an account by removing a main exclamation point. Note that the "useradd" command creates accounts that are disabled and have no password, unless you use the -p parameter, therefore using this "passwd -u" parameter in a new account not only removes the lock but also results in an account without a password, usually "passwd" does not allow this unless you use the -f parameter, which forces "passwd" to activate or convert.
+
+- The -d parameter deletes the password from an account without warning message or anything.
+
+- The -S parameter displays information about an account password, this information tells us if a password is set and what type of algorithm was used to encrypt the password in a hash.
+
+Previously we created the account for the user "Parrot The Pirate (parrot)", to establish a new password to the user "parrot" we used the command "passwd" as shown in the following example.
+	
+	$ sudo passwd parrot 
+	Enter new UNIX password: 
+	Retype new UNIX password: 
+	passwd: password updated successfully
+
+Basic Use of usermod
+
+The "usermod" tool is very similar to the "useradd" tool in terms of its functions and parameters, with the difference that it is for making changes to an existing account rather than creating a new one. The differences between the two tools are as follows:
+
+- usermod allows the additional use of the -m parameter when used in combination with -d. The -d parameter allows us to change the user's home directory but does not move any files, the -m parameter allows usermod to move the user's files to the new home directory.
+
+- usermod supports the -l parameter, which changes the username used for login to a new specified value. For example, running "usermod -l pirate parrot" would change the user name from parish to pirate.
+
+- We can also lock or unlock user passwords using the -L and -U parameters, respectively.
+
+The usermod tool changes the content of the /etc/passwd or /etc/shadow, depending on the parameter used. If used -m also moves the user's files as indicated above.
+
+Editing the features of an account while it is in use can have undesirable consequences. Mainly when we use the -d and -m parameters, this can cause the user to lose access to files he is working on when moving them from directory. Most changes in account settings will not take effect until the user has disconnected and returned again.
+
+This happens because by changing the account UID, this action does not change the UIDs associated with the files, because of this the user may lose access to their personal files. UIDs can be updated manually in all files using the "chown" command that we will see in the next chapter.
+
+When using the -G option to add a user to new groups, keep in mind that any group that is not listed will be deleted, so it's a good idea to use the -a parameter as well. Using the -a and -G parameters together allows us to add a user to a new group without listing the old groups in the command. For example, to add the "pirate" user to the "hackers"group, we use the following command:
+
+	$ groups parrot
+	  parrot : parrot
+	  $ sudo usermod -a -G hackers parrot
+	  parrot : parrot hackers
+
+In the previous example, we used the command "groups" to show the current group of the user's account, the current group is parish, to add it as a member in another group, we used the command usermod with the parameters -a and -G this allows us to keep the membership in the original group (parrot).
+
+Using the chage Command
+
+The "chage" command allows us to modify the account settings related to account expiration. It is possible to set up Linux accounts so that they expire automatically if two conditions are met:
+
+1 - The password has not been changed within a specified period of time.
+
+2 - The system date has passed a predetermined time.
+
+These settings are controlled through the chage utility, their syntax is as follows:
+
+	chage [-l] [-m minimum_days] [-M maximum_days] [-d last_day] [-I idle_days] 
+[-E expiration_days] [-W warning] user_name
+
+These parameters modify the actions of the "chage" command.
+
+- The -l parameter causes chage to display account expiration and password aging information for a particular user.
+
+- The parameter -m sets the minimum number of days between password changes or indicates that a user can change a password several times in one day, indicating with numbers every how many days the user can change the password, 1 indicates that the user can change the password once a day, 2 indicates that the user can change the password every 2 days and so on.
+
+- The -M parameter sets the maximum number of days that can pass between password changes. 30 indicates that a password change is required about once a month.
+
+- The parameter -d sets the last day a password was changed, Linux normally maintains that value automatically, but this parameter can be used to modify the password change count, the last day is expressed in the format YYYY/MM/DD or with the number of days since January 1st,1970.
+
+- The -I parameter sets the number of days between the expiration of the password and the account. An expired account cannot be used or can force the user to change the password immediately after logging in, this depends on the distribution.
+
+- Parameter -E sets an obsolete expiration date, for example, you can use -E 2017/12/31 to have an account open on December 31st,2017 or using the number of days since January 1st,1970, it is also important to mention that the value -1 does not represent an expiration date.
+
+- Parameter -W sets the number of days before the expiration of the account in which the system must send alerts about the impending expiration to the user. It is important to note that these warnings are only displayed to logon users in text mode, users logging in from the GUI usually do not see these warnings.
+
+Description of the Account Configuration Files
+
+User configuration files can be modified directly, the /etc/passwd and /etc/shadow files control most of the basic features of an account. Both files consist of a set of records, one line per account record. Each record begins with a user name and continues with a set of fields determined by colon (:). Many of these items can be modified with "usermod" or "passwd". A typical /etc/passwd registry entry is similar to the following:
+
+	user:x:1000:1000:User,,,:/home/user:/bin/bash
+
+Each of the fields has a specific meaning:
+
+- The first field in each /etc/passwd line is the username (user, in this case).
+
+- The second field has traditionally been reserved for the password, however on most Linux systems today a shadow password system is used where the password is stored in /etc/shadow, the x in the example password field indicates that the shadow passwords are in use. On a system that does not use shadow passwords, a hash password appears instead.
+
+- The following password is the user account ID (1000 in this example).
+
+- The default login group ID is as follows in the /etc/passwd line, in this case the primary GID is 1000.
+
+- The comment field may have different contents in different systems, in the previous example, the user's full name (user), in some systems (as is the case of Parrot) additional information is placed separated by commas, this information may include phone numbers of the user, office or department, title or position occupied, etc...
+
+- The user's home directory, /home/user, is the next data field in the registry.
+
+- The default Shell is the last element of each /etc/passwd record, usually /bin/bash or some other common shell command. It is also possible to create user accounts with a default shell like /bin/false, which prevents users from logging in as common users but leaving other system utilities such as receiving e-mails intact using recovery protocols like POP, IMAP... another interesting example is to use /bin/passwd so that users can remotely change their password but cannot log in using a shell command.
+
+Normally a log entry in /etc/shadow looks like the following:
+
+	user:$6$vocRBGox$Nngt/9rYAijBogufMToHFdb3xzD/7J0GLp9.67/WM82mSsfb3FuC0:17450:0:99999:7:-1:-1:
+
+Most of the fields correspond to the options set with the "chage" tool, others are set with passwd, useradd or usermod. The meaning of each of the fields is explained below.
+
+- Each line starts with the user name, you can notice how the UID is not used in the /etc/shadow file. The user name links the entries in this file to /etc/passwd.
+
+- The next field corresponds to the passwords, these are stored in the form of hash, so they are not at all similar to the real password. An asterisk (*) in the password field indicates that this account does not accept login. An exclamation point (!) in front of the password hash indicates that the account is locked (this occurs when you lock the account with the "usermod -L" tool when using the -L parameter, so this exclamation point is added to prevent the user from logging in, but the original password is maintained). Two exclamation points (!!) indicate that no password has been set for the account, this may also indicate that the account does not accept login.
+
+- The following field (17450) indicates the date of the last password change, it is indicated in number of days since January 1,1970.
+
+- The next field (0) is the number of days before a password change is allowed.
+
+- The next field (99999) indicates the number of days (after the last password change) in which a password change is required.
+
+- The following field (7) indicates the number of days on which to start notifying about the expiration of the password.
+
+By carefully analyzing the above, we can affirm that user accounts can be modified by directly editing these files (/etc/passwd and /etc/shadow). Values -1 and 99999 indicate that this field has been deactivated, it is disabled. It is really recommended to make these modifications using the tools "usermod" and "chage", since it is much more difficult to make these changes directly in the configuration files since mistakes can be made such as: deactivating an account before or after the required time, making an error when calculating the days since January 1st,1970, omitting leap years, etc...
+
+Something similar happens when trying to modify the password hash, it cannot be edited effectively except through the "passwd" tool or similar tools. You can copy and paste a value from a compatible file or use crypto, but it is generally much easier to use passwd, on the other hand, it is not recommended to copy password hashes from other systems because it means that users will have the same passwd on both systems and this fact will be obvious to someone who has acquired both lists of hashes.
