@@ -1,0 +1,72 @@
+
+=== Linux Distributions ===
+
+A Linux distribution (colloquially called distro) is a software distribution based on the Linux kernel that includes certain software packages to meet the needs of a specific group of users, giving rise to home, enterprise and server editions. They are usually composed, totally or mostly, of free software, although they often incorporate proprietary applications or drivers.
+
+In addition to the Linux kernel, distributions typically include the GNU project libraries and tools and the X Window System. Depending on the type of users to whom the distribution is directed, other software such as word processors, spreadsheets, multimedia players, administrative tools, etc. are also included. If you include code packages from the GNU project, it is called GNU/Linux distribution.
+
+=== Package Manager ===
+
+Distributions are divided into "packages". Each package contains a specific application or service.
+
+The package is generally distributed in its compiled version and the installation and uninstallation of the packages is controlled by a package management system rather than a simple file manager. In this case, each package created for that package system contains meta-information such as date of creation, description of the package and its dependencies. The package system analyzes this information to allow searching for packages, updating the libraries and applications installed, checking that all dependencies are fulfilled and obtaining them if they are not automatically available.
+
+Some of the most used package managers are:
+
+*RPM, created by Red Hat and used by a large number of Linux distributions, is the packet format of the Linux Standard Base. Originally introduced by Red Hat, but now used in many distributions, such as Mandriva.
+*Deb, Debian packages, originally introduced by Debian, but also used by others like Knoppix and Ubuntu.
+*. tgz, used by Slackware, packages the software using tar and gzip. But there are also some higher level tools to deal with this format: slapt-get, slackpkg and swaret.
+*Ebuilds, a file containing information about how to obtain, compile and install a package on the Gentoo Linux Portage system with the emerging command. Generally, these installations are based on the compilation of sources, although some binary packages can be installed in this way.
+*Pacman, for Arch Linux, uses precompiled binaries distributed in a. pkg. tar. gz or. pkg. tar. xz file.
+*PET, used by Puppy Linux, its derivatives and Quirky, its sister project.
+
+=== Desktop Environments ===
+
+The desktop is the visual environment that interacts between the Linux kernel and the programs, being vital for the user. When you install the operating system, it will come with a pre-installed desktop, but later you can install a different one and choose which desktop you want to use each time in the login menu. Depending on the computer you have and the use you want to give it, it will be convenient to use a specific desktop.
+
+Commonly people tend to confuse distribution with desktop. We can see two visually equal distributions that work differently from the inside. For example, we could have Arch with a KDE desktop and a Debian with a KDE desktop. They're visually the same. Inside, for example, to install an Arch package you will use pacman -S, and Debian apt-get install.
+
+The GNU/linux desktop will usually have "end-user" packages installed by default. Some Linux distributions have focused specifically on the desktop role. Others include a set of all applications for the platform. In this case, the user can choose between "desktop" or "server" when the operating system is installed.
+
+= Some desktop environments = GNU/Linux offers many alternatives. The most popular desktop environments are GNOME, KDE, XFCE, MATE and Cinnamon.
+
+These are large collections of desktop programs, rather than simpler environments of X window managers such as FVWM, IceWM and many others. These environments present a GUI using a metaphor desk.
+
+=== Popular Distributions ===
+
+*Arch Linux, a distribution based on the KISS principle, with a continuous development system between each version (no need to reinstall the entire system to upgrade).
+*Canaima, is an open socio-technological project, collaboratively constructed, developed in Venezuela and based on Debian.
+*CentOS, a distribution created from the same Red Hat code but maintained by a community of volunteer developers.
+*Chakra project, a popular desktop distribution, initially based on Arch Linux, is currently being developed independently.
+*Debian, a distribution maintained by a network of volunteer developers with a strong commitment to the principles of free software. Debian, a distribution maintained by a network of volunteer developers with a strong commitment to the principles of free software.
+*Dragora and Trisquel, which are gaining importance among distributions that only contain free software.
+*Elementary OS Is a Linux distribution based on Ubuntu 12.04
+*Fedora, a distribution launched by Red Hat for the community.  *Fuduntu, lightweight and fast Fedora-based distribution for notebook use.
+*Gentoo, an advanced user-oriented distribution, known for the resemblance in its packet system to the FreeBSD Ports, a system that automates the compilation of applications from their source code.
+*Huayra, Educational distribution, developed by the Argentine State, from the Anses / Programa Conectar Igualdad. It is based on Debian Jessie with a MATE desktop environment.
+*Knoppix, was the first live distribution to run completely from a removable media. It is based on Debian.
+*Kubuntu, the KDE version of Ubuntu.
+*Linux Mint, a popular distribution derived from Ubuntu.
+*Mageia, created by former workers of Mandriva, very similar to its precursor.
+*Mandriva, maintained by the French company of the same name, is a popular system in France and Brazil. It's based on Red Hat.
+*openSUSE, originally based on Slackware is currently sponsored by SUSE (Micro Focus International). 
+*Parrot, derived from Debian, still growing, promises to be one of the distributions par excellence in the world of pentesting.
+*PCLinuxOS, derived from Mandriva, went from a small project to a popular distribution with a large community of developers.
+*Puppy Linux, version for old computers or with few resources that weighs about 130 MiB.
+*Red Hat Enterprise Linux, derived from Fedora, is maintained and commercially supported by Red Hat.
+*Slackware, one of the first Linux distributions and the oldest running. It was founded in 1993 and has since been actively maintained by Patrick J. Volkerding.
+*Slax, is a small, modern, fast and portable Linux system oriented to modularity. It's based on Slackware.
+*Tuquito: based on Ubuntu, distribution developed in Argentina with good graphical interfaces and universal drivers. Recommended for initial users.
+*Trisquel Distribution 100 % free, uses the Linux-Libre kernel and is suitable for end users.
+*Ubuntu, a popular desktop distribution based on Debian and maintained by Canonical.
+*Zorin OS, distribution based on Ubuntu and oriented to Windows users who want to move to Linux in the easiest and simplest way possible.
+
+===Timeline ===
+
+The following graph shows the evolution of all Linux distributions from 1993 to 2007.
+
+[[Image: https://ubunturoot.files.wordpress.com/2008/02/44218-linuxdistrotimeline-72.png ]]
+
+[[Image: https://upload.wikimedia.org/wikipedia/commons/1/1b/Linux_Distribution_Timeline.svg ]]
+
+== Info == [https://es.wikipedia.org/wiki/Distribuci%C3%B3n_Linux Distribución Linux] [https://es.wikipedia.org/wiki/Escritorio_Linux] [http://proyectopinguino.blogspot.com.es/2008/09/escritorios-para-linux-gnome-kde.html]
