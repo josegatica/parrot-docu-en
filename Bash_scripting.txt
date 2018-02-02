@@ -1,0 +1,918 @@
+# Scripting
+
+## Hello Parrot
+
+NOTE: The commands shown are intended for writing to a text file and not to the terminal unless otherwise indicated.
+
+Bash is primarily a scripting language, apart from a shell. Let's get introduced to the wonderful world of scripting, starting with the familiar "Hello World" script. You can create scripts simply by opening your favorite text editor and saving it. Although it is not necessary for our scripts to have a file extension, .sh is generally used as a reference. In our examples we will use. sh
+
+	#!/bin/bash         
+	#Script hello ParrotSec
+	echo "Hello ParrotSec"
+
+
+In the first line of the script we simply defina the interpreter to use.
+NOTE: There is no space before #!/bin/bash
+In the second line we can see a comment. Anything that starts with "#", except "#!" which appeared in the first line, will be taken by the interpreter as a comment and will not be executed. Get used to writing your scripts with these comments, to explain what you are doing and then you can review your code in an easier way.
+In the third line we use the "echo" instruction to display a text on the screen. In our case "Hello ParrotSec".   
+We save the script in the location we want with the name "hello_parrot.sh", or any other we want.
+
+And that's all. Very simple, isn't it?  
+
+
+In order to run the script, the file must have the correct permissions. To change the permissions we will use the "chmod" (change mode) command like this:
+
+	$ chmod u+x /Path/where/the/file/is/hello_parrot.sh   #Add execution permission to the script owner user.
+	# O
+	$ chmod 700 /Path/where/the/file/is/hello_parrot.sh   #Gives total control to the owner user, eliminating access to other users
+
+This will give us the necessary permissions to run the script. You can now open a terminal and run the script as follows:
+
+	$ /Path/where/the/file/is/hello_parrot.sh
+
+If everything is correct, you can see the text "Hello Parrotsec" on screen. Congratulations!!!! You have just created your first Bash script.
+
+TIP: If you type in the terminal:
+
+	$ pwd
+
+You will see the directory you are working in (pwd is a command that shows you the path in which it is located). If your current path is /Path/where/the/file/is/, the previous command could be reduced as follows:
+
+	$ pwd
+	/Path/where/the/file/is
+	$ ./hello_parrot.sh
+
+
+
+It's time to see more interesting things, Variables!
+
+
+## Variables
+
+Variables basically store information that may (or may not) vary. Let's just stick with the fact that they keep information.
+You can create and assign values to a variable as follows:
+
+	var="PARROT"
+
+The variable name can be any text string without spaces, as long as it does not start with a number. This variable (in our case we have called it' var') can be assigned any text string or number.
+
+In order to extract the content of a variable, we will simply use the name of that variable preceded by the "$"symbol, as indicated in the following example:
+
+	var="PARROT"
+	echo $var
+
+Write the two lines above in a terminal. You will see that the first line returns nothing but the prompt. When you press enter, after entering the second line, the system will write PARROT on the screen.
+
+We create a script that requests information from us to display it on screen.
+
+	#!/bin/bash
+	clear
+	echo "Enter your name:"
+	read name
+	echo "Enter your favorite distribution:"
+	read distribution
+	echo "Enter your PC/Laptop brand:"
+	read PC
+	echo "$name!! wouldn't it be great to install $distribution on your computer $PC?"
+
+The' read' instruction allows the user to enter information, and save that information in a variable with the name defined after 'read'. 'read' will take the entered string, to save it in $variable. We can access its contents by means of the' echo' instruction to form a sentence.  We are going to make some changes in our script:
+
+	#!/bin/bash
+	clear
+	read -p "Enter your name": " name
+	read -p "Enter your favorite distribution: " distribution
+	read -p "Enter your PC/Laptop brand: " PC
+	echo "$name!! wouldn't it be great to install $distribution in your computer $PC?"
+
+
+## Control structures: conditional (if)
+The conditional structure can be used to execute something on the basis of a result given that we will check or take another action if no result has been produced. For example, we could consult a variable and check if its value is' PARROT', in the case that this is so we could show a text and if it were any other value, we would show a different text.
+
+The format for constructing control structures is:
+
+	if [condition]
+        then
+		commands
+
+       	elif [condition]
+       	then
+		commands
+	else if [condition]
+	then
+		commands 
+
+      	else
+		commands
+	fi
+
+The else if, else or elif lines are not strictly necessary, but can be used if desired.  
+It is important to close the conditional control structures to indicate that instructions in this structure have been completed. We will use "fi"for this.  
+Let's look at an example.
+
+Let's check the value entered by a user and display different texts according to that value:
+
+	#!/bin/bash
+	echo "Enter the name of your favorite distribution:"
+	read distribution
+
+	if [ $distribution = parrot ]
+        then 
+		echo "We all like ParrotSEC"
+        else 
+		echo "$distribution is fine. But try Parrot"
+	fi
+
+In the above example, in the control structure:
+
+	if [ the distribution content is 'parrot'  ]
+       	then
+		say "We all like ParrotSEC"
+        if not 
+	then 
+		say "$distribution is fine. But try Parrot"
+	end
+
+Conditional structure is a simple concept because it is very similar to the conditional concept we use when speaking, using "if [this], make instruction". Conditional structures can be chained. Think of another example. Let's add one more condition to our previous example. Suppose we want to control whether the user enters the "Debian" distribution. In other words, if you enter "parrot" we display the text already known and if it is anything else, we will display the corresponding text. But now we want to control the text output for the "Debian" option.
+
+Let's see two ways to do it and choose the one you like best (I'll just show you how the control structure looks and not the whole script):
+
+	if [ $distribution = parrot ]
+	then
+		echo "We all like ParrotSEC"
+	else
+		if [ $distribution = debian ]
+		then
+			echo "Debian is the master"
+		else
+			echo "$distribution is fine. But try Parrot"
+		fi
+	fi
+
+Another way:
+
+	if [ $distribution = parrot ]
+	then
+		echo "We all like ParrotSec"
+	elif [ $distribution = debian ]
+	then
+		echo "Good for Debian, try intalling Parrot"
+	else
+		echo "$distribution is fine. But try Parrot"
+	fi 
+			
+
+This last form allows us to write in a simple way conditionals that could well be chained (example 1), but that would require more attention, especially in the closing of these conditions (fi). There are other ways to have control of multiple conditions but we will talk about this later.
+
+
+
+We have seen how we can control conditions on text strings, but we can execute conditional control structures on alphanumeric values.  
+We could use conditions of the style "If variable is greater than or equal to a given number, subtract 1 from variable","If a variable is less than a given value, add 3 to variable2",...
+
+Example:  
+
+	#!/bin/bash
+	echo "Enter a value:"
+	read value
+	if [ $ value -ge 5 ]
+	then 
+		echo "The entered value is greater than or equal to 5"
+	else
+		echo "The entered value is less than 5"
+	fi
+
+
+
+
+The condition given and translated into "English" would be the following: "if the value of $value is greater than or equal to 5". ge means "Greater or Equal than".
+
+The following tables are taken from the test man (test man):
+
+	##Operators for text strings 
+	Operator		True if:
+	------------------------------------------
+	string1 = string2	the strings are the same
+	string1 != string2	the strings are not the same
+	-n string		the string lenght is not 0
+	-z string		the string lenght is 0
+
+
+
+	##Operators for alphanumerical values
+	Operator		True if:
+	------------------------------------------
+	x -lt y			x less than y
+	x -le y			x less than or equal to y
+	x -eq y			x equal to y
+	x -ge y			x greater than or equal to y
+	x -gt y			x greater than y
+	x -ne y			x not equal to y
+
+
+
+	##Operators for files
+	Operator		True if:
+	------------------------------------------
+	-d file			file exists and is a directory
+	-e file			file exists
+	-f file			file exists and is a regular file (not a directory, or other special file type)
+
+	-r file			You have read permission in file
+	-s file			file exists and is not empty
+	-w file			You have write permission in file
+	-x file			You have execute permission in file (or search if it is a directory)
+
+	-O file			You own the file
+	-G file			The file group is the same as yours.
+
+	file1 -nt file2		file1 is more recent than file2
+	file1 -ot file2		file1 is older than file2
+
+
+
+There are more operators. One to combine different conditions '-a' (AND) and '-o' (OR). Y '!'  to deny a condition.
+
+Let's look at a few examples. Please read the script comments.
+
+Example 1:  
+
+	#!/bin/bash
+	#
+	# In this example we will check strings
+	#
+	
+	#We ask the user to enter two texts that we will save in text1 and text2 variables
+	read -p "Write a text:" text1
+	read -p "Write another text:" text2
+
+	#Check if any text strings are empty (text1 is empty or text2 is empty)
+	#Pay attention to the quotation marks so that it is actually considered text
+	if [ -z "$text1" -o -z "$text2" ]; then
+		#If you enter this condition, you do not need to continue with the script
+		#So we cause an exit of the same one, with a value of 1. We'll talk about this at some point later.
+		#At the moment we must know that exit finishes the script and that the value 1 is the return code of the script, because we have indicated it.
+		echo "One of the texts is empty"
+		exit 1
+	fi
+
+	#We check if text1 is equal to text2
+	if [ $text1 = $text2 ]
+	then
+		echo "$texto1 is equal to $texto2"
+	#We could have simply chosen else, and saved ourselves the definition of the condition.
+	elif [ $text1 != $text2 ]; then
+		# \" is used to escape the '"'. In other words, the interpreter must know that these quotation marks are not the end of the echo command, but rather the end of the echo command.
+		# what those quotation marks should show inside the string.  
+		echo "The text \"$text1\" and the text \"$text2\" are not equal"
+	fi
+
+Annex 1 Ex. 1: echo y escape sequence
+
+Try typing on a command line:
+
+	$ echo "Hello Parrot"
+
+But... how do we write an echo command to show "ParrotSec"on the screen?
+Although "echo" has several options and we can use other symbols to indicate the beginning and end of the text string to be displayed, it is generally used with the ". In order to show a string with "we must "escape" double quotes.
+
+Look at the following example:
+
+	$ echo "Hello "Parrot""
+
+Well, in order for the quotation marks to be part of the string to be shown, we must escape these quotation marks. This is done by putting a '\' symbol before the special character. This is widely used for other commands as well. Following our example, the command would look like this:
+
+	$ echo " Hello \"Parrot\"  "
+
+Several spaces have been added in the string to be displayed, both at the beginning and at the end, simply to make the example clearer.
+
+
+
+
+Ex. 2:
+
+	#!/bin/bash
+	#
+	## Comparison of numerical values
+	#
+
+	read -p "Enter the first number:" NUM1
+	read -p "Enter the second number:" NUM2
+	read -p "Enter the third number:" NUM3
+
+
+	# Using' &&' is the same as using' a' operator '-a'
+	if [ $NUM1 -ne $NUM2 ] && [ $NUM1 -ne $NUM3 ]; then
+		echo "$NUM1 is different from $NUM2 and $NUM3"
+	fi
+
+	# Use '||' is the same as using the '-o' operator
+	if [ $NUM1 -gt $NUM3 ] || [ $NUM1 -gt $NUM2 ]; then
+	        echo "$NUM1 is the largest number of the 3 entered"
+        fi
+
+
+
+
+## Control structures: conditional (case)
+We could consider the control structure "CASE" as a conditional format similar to "IF". Given a result of a variable, we will select specific instructions.
+The format for building CASE control structures is:
+
+	case $variable in
+     		caso_1 )
+        		commands;;
+     		caso_2 ) 
+			commands;;
+  		......
+	esac  
+
+
+
+Ex. 1:
+
+	case "$1" in
+		start)
+			echo "Last choice: Start"
+			;;
+		stop)
+			echo "Las choice: Stop"
+			;;
+		*)
+			echo "Use: $0 {start|stop}"
+			exit 1
+			;;
+	esac
+
+Annex Ex. 1:   
+The value of $1, is the first option passed to our script. That is, if our script is called "miscript. sh", we could run "./miscript. sh option1" and $1 would be the same as option1.
+
+Ex. 2:
+
+	read option
+	case $option in
+		s|S)
+			echo "Yes was pressed"
+			;;
+		n|N)
+			echo "No was pressed"
+			;;
+		*)
+			echo "Not a comtemplated option"
+			;;
+	esac
+
+
+
+## Control structure: conditional (SELECT)
+This structure is special and the dream of many programmers. It's the easiest way to create a menu.
+
+The shape of this structure is:
+
+	select name in option1 option2 option3
+	do
+  		commands
+	done
+
+
+
+Ex. 1:
+
+	#!/bin/bash
+	select OPTION in parrot debian others exit
+	do
+		case $OPTION in
+			parrot)
+				echo "You selected: $OPTION"
+				;;
+			debian)	
+				echo "You selected $OPTION. You are ready to use ParrotSec"
+				;;
+			otros)
+				echo "Do yourself a favor and install Parrot"
+				;;
+			salir)
+				echo "Done"
+				exit
+				;;
+		esac
+	done
+
+
+Annex Ex. 1:   
+As you can see in this example, we have chained another case structure within our "select" structure.
+
+
+
+## Loop structure: FOR
+For repetitive actions, loop-shaped structures have been created. There are several types. In this first place we will see "for" loops.
+The loop is a list of commands that is performed repeatedly.
+In the case of FOR, this block will be repeated as long as we have values in the list we are checking.
+The shape of this structure is as follows:
+
+	for variable [in list]
+	do
+		execution
+	done
+
+
+Ex. 1:
+
+	for i in 1 2 3 4 5
+	do
+		echo "Account $i"
+	done
+
+
+Ex. 2:  
+
+	for i in {2..10..2}
+	do
+		echo "$i is even"
+	do
+
+Annex Ex. 2:    
+In bash versions prior to V.3, a seq command was normally used to draw a list of incremental values. In bash version 4, a way to create these incremental values within the for loop itself was implemented.
+It is no longer necessary to call the external program "seq", since the built-in of the applied for in this example is faster.
+"{First_number... Last_number... Increase}"
+
+
+Ex. 3:
+
+	for (( c=1; c<=5; c++))
+	do
+		echo "Value of c is : $c"
+	done
+
+Annex Ex. 3:    
+This example of for is the same (not strange because it is inherited from it) as the C programming language.
+
+	Expression1 = variable initialization
+	Expression2 = loop execution condition
+	Expression3 = variable increment
+
+
+
+
+
+## Loop structure: WHILE
+In this structure the loop will be executed as long as a condition is met.   
+The shape of this structure is:
+
+	while condition
+	do
+		comamnd
+		command
+		...
+	done
+
+
+Ex. 1   
+
+	#!/bin/bash
+	
+	COUNTER=1
+	while [ $COUNTER -le 10 ]
+	do
+		echo $COUNTER
+		((COUNTER++))
+	done
+	echo "Finished"
+
+
+Ex. 2  
+
+	while :
+	do
+		echo "Infinite loop [press CTRL+C to finish]"
+		sleep 1
+	done
+
+Annex Ex. 2:    
+If we put the symbol ":" after while, the loop will be executed uninterruptedly.
+
+
+Ex. 3:
+
+	while read line
+	do
+		echo $line
+	done < file
+
+Annex Ex. 3:    
+This structure is used to read one file line by line. "file" is a filename that our loop will read line by line.
+
+
+
+
+## Loop structure: UNTIL
+The until loop continues to execute commands as long as the condition is met. Once such a condition is false, it is looped out.
+The shape of this structure is:
+
+	until condition
+	do
+		command
+		command
+		...
+	done 
+
+
+Loop differences until and while:
+
+	1- The until loop is executed while the condition returns a "nozero" value.
+	2- The while loop is executed while the condition returns a "zero" value.
+	3- The loop until always runs at least once.
+
+
+Ex. 1:  
+
+	#!/bin/bash
+	i=1
+	until [ $i -gt 10 ]
+	do
+		echo $i
+		((i++))
+	done
+
+
+	
+
+
+## Saving the output of a command in a variable
+
+In bash scripting, even in the shell, we can assign to a variable the result of a command we run. The elegant way to do this is in the following format: VARIABLE=$(command).
+
+Example:    
+
+	$ VARIABLE=$(who)
+	$ echo $VARIABLE
+
+When executing these commands, we will see on screen the users connected to any terminal of our system.
+Note that this eliminates line breaks. Remember that you can use pipes "|" to filter the result. As in the following example:
+	
+	$ VARIABLE=$(who|awk '{print $1}')
+	$ echo $VARIABLE
+
+In this example we have collected, by awk, the first field of the who output. That is to say the user name(s) logged in our system.
+
+
+
+
+
+## Redirect output of a command to a file
+
+A command has 2 pointers associated with its output per screen. Output "1" or standard output and error output or "2". Execute 2 commands "ls" to see this. In a terminal, execute the following commands:
+
+	$ ls -la /etc/passwd
+	$ ls -la /non_existent_name
+
+When executing the first command we should see the following (or something similar)
+
+	-rw-r--r-- 1 root root 3395 Sep 15 08:37 /etc/passwd	
+
+This result, being correct, has been shown on the terminal by the standard output or "1".
+In the second command we will see an error message, since the file does not exist.
+
+	ls: cannot access '/non_existent_name': No such file or directory
+
+To display this result, the system has directed that error to output "2" or error output.
+
+We can redirect that output to a file if we want (even the /dev/null special file, the "black hole" or trash can without system return).
+
+Let's look at several examples, opening a terminal:
+
+	$ ls -la /etc/passwd 1> output1.standard
+	$ cat output1.standard
+
+We see that apparently the first command has not shown anything on screen. What we've done is redirect your standard output to an output1.txt file.
+Operator "1" can be omitted if desired. We could have written:
+	
+	$ ls -la /etc/passwd > output1.standard
+
+Being exactly the same. We can only do this for standard output, we cannot use it for error output.
+
+Let's see how we can redirect the error output. As we have already mentioned, the error output has a pointer represented by the number "2".
+
+	$ ls -la /non_existent_name 2> output2.error
+	$ cat output2.error
+
+In this case, as in the previous example, we do not see the error by screen since we have redirected this output ("2" for being error) to the output2.txt file.
+
+We can also address both standard and error outputs in a single line:
+	
+	$ ls -la /etc/passwd /non_existent_name 1> output1.standard 2>output2.error
+
+There are several options for redirecting the two outputs to a common file:
+	
+	$ ls -la /etc/passwd /non_existent_name 1> output.txt 2> output.txt
+
+Or also:
+
+	$ ls -la /etc/passwd /non_existent_name > output.txt 2>&1
+
+In the case of "2>&1", we are indicating to the system that the error output ("2"), is redirected to the same place where output one points. As we have firstly redirected output "1" (standard) to the output.txt file, error messages will also appear in the same file. We could translate "2>&1" as "the error output (2) redirect it (>) to where it points (&) the standard output (1)".
+
+By redirecting the outputs, whether standard or error outputs, to a file, this will be generated empty each time the ">" symbol appears. Let's see this with an example, using a script that writes the system date every second in a file:
+
+	#!/bin/bash
+	#
+	#Write in the date.txt file, the system date every second up to 3 times
+	#
+	for ((i=0; i<3; i++))
+	do
+		#The first date is shown on the screen date
+		#The second date is redirected to date.txt date > date.txt
+		#The following instruction, simply for executing the script for one second
+		sleep 1
+	done
+
+
+In this example, we have redirected the output from "date" to "date.txt" with the symbol ">". If we do "cat date.txt" we will only see one line (the last execution). Explaining this in more detail, we see that our script has repeated the "for" iteration 3 times. In the first run, after displaying the "date" output, you have created a new "date.txt" file to write the standard output of the next "date". The same applies to the second execution of the loop. In the "date > date.txt" instruction, the output of the command is redirected to a newly created file called "date.txt", overwriting it. This way you will lose the contents of the first iteration. In the third pass exactly the same thing happens again, causing the resulting file to show only the last execution.
+To prevent this from happening, we can use the ">>" redirection symbols. This will ensure that the file is not overwritten but the output is added to the end of it.
+
+	#!/bin/bash
+	#
+	#Write in the file date.txt, the system date every second up to 3 times
+	#
+	#The following command is a simple way to empty a file. I use it to remove the execution of the previous script
+	>date.txt
+
+	for ((i=1; i<3; i++))
+	do
+		date
+		date >> date.txt
+		sleep 1
+	done
+
+
+Now yes, the file contains the output of all three iterations.
+
+There is a command to be able to add the outputs of a command to a file and display them also on screen. This instruction is "tee".
+This way, our script will look like this:
+
+	#!/bin/bash
+	#
+	#Write in the file date.txt, the system date every second up to 3 times
+	#
+	>date.txt
+	for ((i=1; i<3; i++))
+	do
+		date | tee -a date.txt
+		sleep 1
+	done
+
+
+
+
+
+
+## Functions
+ 
+Bash allows you to create functions, which is very useful if you are going to use a block of code more than once. Functions reduce the amount of code you have to write and edit in the case of modifications. Let's see it!!!
+
+
+Ejemplo:
+
+	echo "Hello Parrot"
+	echo "What a fun function"
+	echo "Hello Parrot"
+
+
+Although it is a very simple script, we can see how we must edit two lines to change the message "Hello Parrot" to "Good morning PARROT".
+The structure of the functions is as follows:
+	
+	function_name() {
+		commands
+		}
+
+	....
+	....
+	....
+
+	function_name
+
+
+Here's how we can use functions in the previous script.
+
+Example:
+
+	function_parrot() {
+  		echo "Good morning PARROT"
+	}
+	function_diver() {
+  		echo "What a fun function"
+	}
+
+	function_parrot
+	function_diver
+	function_parrot
+
+
+To call the functions we simply write the name of the function we want to use without the parentheses. We could now extend our functions by simply changing the corresponding code block.
+
+
+
+## Code debugging
+
+It is always useful to be able to debug the code. To draw a bash script, we can run it by calling bash by specifying the "-x" option.
+
+We'll run on the command line:
+
+	$ bash -x ./script.sh
+
+This will write each command for error output (preceded by the "+" symbol) before it is executed.
+
+
+
+
+
+
+
+
+## Exit code
+
+When a process ends, it returns a non-negative value called the return value or exit code to the operating system. Generally and for convenience it will return a 0 if it has been executed correctly and any other value if there is an error. This way you can also choose different error codes depending on the error that the command has produced. A bash script can return a value using the "exit" command. For example:
+
+	exit 4
+
+
+Ends the script by returning a return code "4" indicating some kind of error. If we do not specify the output code, the script will return the output of the last command executed.
+
+One way to use these output values is by using the && ("y") and || ("or") operators. If we have two commands separated by &&, then the command to the left will be executed first, and the command to the right will only be executed if the first one has been successfully completed. Conversely, if they are separated by ||, the second command will only be executed if the first command fails.
+
+For example, suppose we want to delete the log.txt file and recreate it as an empty file. We can execute these two instructions:
+
+	$ rm log.txt
+	$ touch log.txt
+
+
+"rm" deletes a given file and "touch" creates it empty in case it doesn't exist. But really, if "rm" fails we don't want to run "touch", that is, if the log.txt file doesn't exist we don't want to recreate it. This way you can execute the following commands:
+
+	$ rm log.txt && touch log.txt
+
+
+This is the same as the two previously executed commands, except that the file will not be created if it did not exist before.
+
+The return code of a command can be consulted through "$?".
+
+Let's look at some examples:
+
+	$ ls nonexistentfile
+	$ echo $?
+
+The output of these two commands should be something perished to:
+
+	ls: cannot access 'nonexistentfile': No such file or directory
+	2
+
+The first line indicates an error when listing the existence of a file (invented for the occasion).
+In the second line the answer is a "2". In other words, our "ls" returned a "2" as an error occurred.
+Please note that "echo $?" can only retain the "exit code" of the last executed instruction, in this case a "ls" of a non-existent file.
+
+Let's check the "exit code" of the same command on a file that does exist:
+
+
+	$ ls /home
+	$ echo $?
+
+What's the second command response this time? Indeed, it is a "0". This is because the /home directory exists, so our "ls" has been able to list its contents, and so the command has run perfectly and without any errors. The "echo $?" is widely used in command line to check if, especially when an instruction has lasted over time and has shown a lot of text on its output (e. g. a code compilation), it has finished correctly. To do this, after executing the command, and without running any instructions we will ask for "$?" (echo $?) and if it returns a "0", we will know that it is finished correctly.
+
+
+
+Below we can see an example of a script, with the utility of this.
+
+
+	#!/bin/bash
+	#
+	#Script that requests a string to search among all files in a given directory
+	#
+	#
+        clear
+
+	#Data collection
+        read -p "Enter a file with your absolute path: " FILE
+        read -p "Enter search string: " STRING
+
+	#We redirect both standard and error outputs so that nothing appears on the screen.
+        grep -r $STRING $FILE 1>/dev/null 2>&1
+	
+	#We could have collected the exit code in a variable
+        #EXITCODE=$(echo $?)
+        #case $EXITCODE in
+        
+        
+        case $? in
+	#We ask for the exit code of our grep
+        0)
+        	echo "Matches were found"
+		#Our script returns 0 in your exit code
+                exit 0
+                ;;
+        1)
+                echo "Matches were not found"
+		#Although the exit code of grep has been "1", in the output of our script we return a "0", since we want it.
+                exit 0
+                ;;
+        2)
+                echo "Check the file name"
+                exit 2
+                ;;
+        *)
+                echo "Error not covered"
+                exit 3
+                ;;
+        esac
+
+
+Try to check the different options of our "case". In each of the executions, write $? in the terminal to check the exit codes forced by us.
+
+
+## Other interesting variables
+
+	$0 - The name of our bash script.
+	$1-$9 - The first 9 arguments passed from the command line to our bash script.
+	$# - Shows the number of arguments passed from the command line to our script.
+	$@ - Displays all arguments that have been passed to our script.
+	$? - Displays the exit code of the last process executed.
+	$$ - Displays the PID (Process ID) of the script.
+	$USER - User who is running the script.
+	$HOSTNAME - The hostname of the machine the script is running on.
+	$SECONDS - The number of seconds since the script started.
+	$RANDOM - Returns a random number each time it is invoked.
+
+
+If you type "env" in the command line, you will see a list of different variables you can use.
+You can also see other variables and much more information on the bash manual page.
+	$ man bash
+
+
+
+
+## Other "languages" related to bash
+
+
+It is very interesting that they check the operation of several programs that are widely used in the development of bash scripts. They can view your "man" pages, and even check help pages on the Internet to see how it works.
+
+	tr:  changes and deletes characters in a string.
+	awk: a programming language itself. It is used to process texts and strings.
+	sed: Also widely used for word processing.
+	grep: Searches for text strings in files.
+	cut: It processes texts, showing us different fields.
+
+
+
+## whiptail
+
+In Bash script we can also show dialog boxes if the whiptail program is installed. By default, Parrot already has it installed.
+
+	$ whiptail
+	Box options: 
+		--msgbox <text> <height> <width>
+		--yesno  <text> <height> <width>
+		--infobox <text> <height> <width>
+		--inputbox <text> <height> <width> [init] 
+		--passwordbox <text> <height> <width> [init] 
+		--textbox <file> <height> <width>
+		--menu <text> <height> <width> <listheight> [tag item] ...
+		--checklist <text> <height> <width> <listheight> [tag item status]...
+		--radiolist <text> <height> <width> <listheight> [tag item status]...
+		--gauge <text> <height> <width> <percent>
+	Options: (depend on box-option)
+		--clear				clear screen on exit
+		--defaultno			default no button
+		--default-item <string>		set default string
+		--fb, --fullbuttons		use full buttons
+		--nocancel			no cancel button
+		--yes-button <text>		set text of yes button
+		--no-button <text>		set text of no button
+		--ok-button <text>		set text of ok button
+		--cancel-button <text>		set text of cancel button
+		--noitem			don't display items
+		--notags			don't display tags
+		--separate-output		output one line at a time
+		--output-fd <fd>		output to fd, not stdout
+		--title <title>			display title
+		--backtitle <backtitle>		display backtitle
+		--scrolltext			force vertical scrollbars
+		--topleft			put window in top-left corner
+		-h, --help			print this message
+		-v, --version			print version information
+
+
+Let's look at the simplest example:
+
+	$ whiptail --title "Example of dialogue" --infobox "Parrot is wonderful" 8 78
+
+We run (or write in a bash script) whiptail with the following options:
+  
+- title "Title". The title we want for our dialog box.
+- infobox "text". Select the type of dialog box you want to use.
+- 8 78. The size of our box.        
+
+## Where to get more information
+We can get more information from the following sources:
+- The man of bash  
+- http://tldp.org/guides.html   
+- http://linuxcommand.org/   
+- Performing relevant searches in your favorite search engine
+- Asking questions in the parish forum https://community.parrotsec.org/
+- Accessing the telegram group in both English (https://t.me/parrotsecgroup) and Spanish (https://t.me/ParrotSpanishGroup). WE WILL BE HAPPY TO MEET YOU AND HELP YOU IN ANY WAY WE CAN. 
+
+
